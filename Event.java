@@ -25,24 +25,14 @@ public class Event implements Comparable{
         flowNames = new ArrayList();
         subscribe = new ArrayList();
     }
-    
+    /*
     public Event(String name)
     {
         publish = name;
         flowNames = new ArrayList();
         subscribe = new ArrayList();
-    }
+    }*/
     
-    public Event(String dslName, String category, String subCategory, ArrayList<String> 
-            flowNames, String publish, ArrayList<String> subscribe) {
-        this.dslName = dslName;
-        this.category = category;
-        this.subCategory = subCategory;
-        this.flowNames = flowNames;
-        this.publish = publish;
-        this.subscribe = subscribe;
-    }
-
     public String getCategory() {
         return category;
     }

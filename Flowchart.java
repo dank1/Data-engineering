@@ -45,25 +45,14 @@ public class Flowchart
             ArrayList<Boolean> temp = new ArrayList();
             for(int i = 0; i < eventList.size(); ++i)
             {
-                    try
-                    {
-                        if(e.hasSubscriber(eventList.get(i)))
-                        {
-                         temp.add(true);
-                        }
-                        else
-                        {
-                            temp.add(false);
-                        }
-                    }
-                    catch(NullPointerException ex)
-                    {
-                        if(i == 0)
-                        {
-                            startNodes.add(e);
-                        }
-                        temp.add(false);
-                    }
+                if(e.hasSubscriber(eventList.get(i)))
+                {
+                    temp.add(true);
+                }
+                else
+                {
+                temp.add(false);
+                }
                 
             }
             dependancies.add(temp);

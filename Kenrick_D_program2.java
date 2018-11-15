@@ -37,12 +37,36 @@ public class Kenrick_D_program2 {
         events2.add(e16);
         events2.add(e17);
         events2.add(e18);
-        
+        /*
         flowcharts.add(new Flowchart("F1"));
-        flowcharts.add(new Flowchart("F2"));
+        flowcharts.add(new Flowchart("F2"));*/
+        
+        for(Event e: events2)
+        {
+            for(String s: e.getFlowNames())
+            {
+                 boolean foundMatch = false;
+                 for(Flowchart f: flowcharts)
+                 {
+                     if(f.getFlowchartNum().equals(s))
+                     {
+                         //f.addEvent(e);
+                         foundMatch = true;
+                         break;
+                     }
+                 }
+                 if(!foundMatch)
+                 {
+                     flowcharts.add(new Flowchart(s));
+                 }
+            }
+        }
+        
+        
         
         for(Flowchart f: flowcharts)
         {
+            
             for(Event e: events2)
             {
                 if(e.hasFlowName(f.getFlowchartNum()))
