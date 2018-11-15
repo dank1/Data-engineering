@@ -14,6 +14,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
  
+/*
+ * This class reads from each file and creates a json parser to parse the file
+ */
 public class DataEngine {
     
     public String fileName;

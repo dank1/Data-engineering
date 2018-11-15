@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public class Flowchart 
 {
-    public ArrayList<Event> eventList;
+    public ArrayList<Event> eventList;//list of events that the flowchart has
     private final ArrayList<Event> startNodes;//nodes with no subscribers
-    private final String flowchartNum;
+    private final String flowchartNum;//this is the name of the 
     public ArrayList<ArrayList<Boolean>> dependancies= new ArrayList();//adjacency matrix
     
     public Flowchart(String num)
@@ -29,6 +29,7 @@ public class Flowchart
         return flowchartNum;
     }
     
+    //adds events to the flowchart
     public void addEvent(Event e)
     {
         eventList.add(e);
@@ -38,6 +39,7 @@ public class Flowchart
         }
     }
     
+    //this method creates the dependancies list
     public void createDependencies()
     {
         for(Event e: eventList)

@@ -41,6 +41,7 @@ public class Kenrick_D_program2 {
         flowcharts.add(new Flowchart("F1"));
         flowcharts.add(new Flowchart("F2"));*/
         
+        //Creating the flowcharts
         for(Event e: events2)
         {
             for(String s: e.getFlowNames())
@@ -62,8 +63,7 @@ public class Kenrick_D_program2 {
             }
         }
         
-        
-        
+        //adding events to flowcharts
         for(Flowchart f: flowcharts)
         {
             

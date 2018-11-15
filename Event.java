@@ -10,8 +10,9 @@ import java.util.ArrayList;
 /**
  *
  * @author daniel.kenrick
+ * this class is for the object representation of the dsl files to be sorted
  */
-public class Event implements Comparable{
+public class Event {
     
     private String dslName;
     private String category;
@@ -33,6 +34,7 @@ public class Event implements Comparable{
         subscribe = new ArrayList();
     }*/
     
+    /*getters and setters*/
     public String getCategory() {
         return category;
     }
@@ -81,6 +83,7 @@ public class Event implements Comparable{
         this.subscribe = subscribe;
     }
     
+    
     public boolean hasFlowName(String flowName)
     {
         for(String f: flowNames)
@@ -93,6 +96,7 @@ public class Event implements Comparable{
         return false;
     }
     
+    
     public void addFlowName(String... flowname)
     {
         for(String i: flowname)
@@ -100,6 +104,7 @@ public class Event implements Comparable{
             flowNames.add(i);
         }
     }
+    
     
     public void addSubscriber(String... s)
     {
@@ -134,7 +139,6 @@ public class Event implements Comparable{
     public String toString() {
         return publish; //To change body of generated methods, choose Tools | Templates.
     }
-
     @Override
     public boolean equals(Object obj) {
         Event other = (Event) obj;
@@ -144,10 +148,5 @@ public class Event implements Comparable{
     @Override
     public int hashCode() {
         return publish.hashCode(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        return 0; //To change body of generated methods, choose Tools | Templates.
     }
 }
