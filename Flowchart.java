@@ -5,11 +5,7 @@
  */
 package kenrick_d_program2;
 
-import java.util.Collection;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,63 +13,106 @@ import java.util.Queue;
  */
 public class Flowchart 
 {
-    public Queue<Event> events;
-    private int flowchartNum;
-    public Graph graph;
+    public ArrayList<Event> eventList;
+    private final ArrayList<Event> startNodes;//nodes with no subscribers
+    private final String flowchartNum;
+    public ArrayList<ArrayList<Boolean>> dependancies= new ArrayList();//adjacency matrix
     
-    public Flowchart(int num)
+    public Flowchart(String num)
     {
         flowchartNum = num; 
-        events = new PriorityQueue<>();
-        graph = new Graph();
+        eventList = new ArrayList();
+        startNodes = new ArrayList();
     }
 
-    public int getFlowchartNum() {
+    public String getFlowchartNum() {
         return flowchartNum;
     }
     
-    public void addNodes()
+    public void addEvent(Event e)
     {
-        while(!events.isEmpty())
+        eventList.add(e);
+        if(e.getSubscribe().isEmpty())
         {
-            //System.out.println(events.size());//for debugging purposes
-            
-            Event temp = events.poll();
-            boolean hasNodes = true;
-            System.out.println(temp);
-            if(temp.getSubscribe().isEmpty())
+            startNodes.add(e);
+        }
+    }
+    
+    public void createDependencies()
+    {
+        for(Event e: eventList)
+        {
+            ArrayList<Boolean> temp = new ArrayList();
+            for(int i = 0; i < eventList.size(); ++i)
             {
-                graph.addIfEmpty(temp);
-            }
-            else
-            {
-                for(Event s: temp.getSubscribe())
-                {
-                    if(!s.getFlowNames().contains(flowchartNum))
+                    try
                     {
-                        continue;
+                        if(e.hasSubscriber(eventList.get(i)))
+                        {
+                         temp.add(true);
+                        }
+                        else
+                        {
+                            temp.add(false);
+                        }
+                    }
+                    catch(NullPointerException ex)
+                    {
+                        if(i == 0)
+                        {
+                            startNodes.add(e);
+                        }
+                        temp.add(false);
                     }
                 
-                    if(!graph.hasNode(s, graph.root))
-                    {
-                        
-                        hasNodes = false;
-                        events.add(temp);
-                        //System.out.println("add");
-                        break;
-                    }
-                }
             }
-            if(hasNodes)
-            {
-                for(Event s: temp.getSubscribe())
-                {
-                    if(s.getFlowNames().contains(flowchartNum))
-                    {
-                        graph.addToRoot(temp, s);
-                    }
-                }
-            }
+            dependancies.add(temp);
         }
+    }
+    
+    //this method was used for debugging purposes for the adjacency matrix
+    public void printDependancies()
+    {
+        for(ArrayList<Boolean> al: dependancies)
+        {
+            for(Boolean b: al)
+            {
+                if(b)
+                {
+                    System.out.print(1);
+                }
+                else
+                {
+                    System.out.print(0);
+                }
+            }
+            System.out.print("\n");
+        }
+    }
+
+    /*
+    This method contains the logic 
+    */
+    @Override
+    public String toString() {
+        String temp = flowchartNum + ":\n";
+        
+        for(Event e: startNodes)
+        {
+            temp += e.getPublish();
+            int current = eventList.indexOf(e);
+            for(int i = 0; i < eventList.size(); ++i)
+            {
+                if(dependancies.get(i).get(current))
+                {
+                    temp += "->" + eventList.get(i).toString();
+                    current = i;
+                    i = 0;
+                }
+            }
+            temp += "\n";
+        }
+        
+        return temp; //To change body of generated methods, choose Tools | Templates.
     }
 }

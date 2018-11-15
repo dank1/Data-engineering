@@ -16,12 +16,14 @@ public class Event implements Comparable{
     private String dslName;
     private String category;
     private String subCategory;
-    private ArrayList<Integer> flowNames;
+    private ArrayList<String> flowNames;
     private String publish;
-    private ArrayList<Event> subscribe;
+    private ArrayList<String> subscribe;
     
     public Event()
     {
+        flowNames = new ArrayList();
+        subscribe = new ArrayList();
     }
     
     public Event(String name)
@@ -31,7 +33,8 @@ public class Event implements Comparable{
         subscribe = new ArrayList();
     }
     
-    public Event(String dslName, String category, String subCategory, ArrayList<Integer> flowNames, String publish, ArrayList<Event> subscribe) {
+    public Event(String dslName, String category, String subCategory, ArrayList<String> 
+            flowNames, String publish, ArrayList<String> subscribe) {
         this.dslName = dslName;
         this.category = category;
         this.subCategory = subCategory;
@@ -48,7 +51,7 @@ public class Event implements Comparable{
         return dslName;
     }
 
-    public ArrayList<Integer> getFlowNames() {
+    public ArrayList<String> getFlowNames() {
         return flowNames;
     }
 
@@ -60,7 +63,7 @@ public class Event implements Comparable{
         return subCategory;
     }
 
-    public ArrayList<Event> getSubscribe() {
+    public ArrayList<String> getSubscribe() {
         return subscribe;
     }
 
@@ -72,7 +75,7 @@ public class Event implements Comparable{
         this.dslName = dslName;
     }
 
-    public void setFlowNames(ArrayList<Integer> flowNames) {
+    public void setFlowNames(ArrayList<String> flowNames) {
         this.flowNames = flowNames;
     }
 
@@ -84,15 +87,15 @@ public class Event implements Comparable{
         this.subCategory = subCategory;
     }
 
-    public void setSubscribe(ArrayList<Event> subscribe) {
+    public void setSubscribe(ArrayList<String> subscribe) {
         this.subscribe = subscribe;
     }
     
-    public boolean hasFlowName(int flowName)
+    public boolean hasFlowName(String flowName)
     {
-        for(int f: flowNames)
+        for(String f: flowNames)
         {
-            if(f == flowName)
+            if(f.equals(flowName))
             {
                 return true;
             }
@@ -100,20 +103,41 @@ public class Event implements Comparable{
         return false;
     }
     
-    public void addFlowName(int... flowname)
+    public void addFlowName(String... flowname)
     {
-        for(int i: flowname)
+        for(String i: flowname)
         {
             flowNames.add(i);
         }
     }
     
-    public void addSubscriber(Event... s)
+    public void addSubscriber(String... s)
     {
-        for(Event e: s)
+        for(String e: s)
         {
             subscribe.add(e);
         }
+    }
+    
+    public boolean hasSubscriber(Event e)
+    {
+        for(String i: subscribe)
+        {
+            if(e.getPublish().equals(i))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean hasSubscribers()
+    {
+        if(subscribe.isEmpty())
+        {
+            return false;
+        }
+        return true;
     }
 
     @Override

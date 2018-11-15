@@ -13,21 +13,24 @@ import java.util.ArrayList;
  */
 public class Graph
 {
-	public Node root;
-        public int flowname;
+	public Node head;
+        public String flowname;
+        public Node tail;
         
-	public Graph()
+	public Graph(String flowname)
 	{
-            root = new Node();
+            head = new Node("head");
+            tail = new Node("");
+            this.flowname = flowname;
 	}
 	
 	public class Node
 	{
 		Event data;
 		public ArrayList<Node> children;
-                public Node()
+                public Node(String d)
                 {
-                    data = new Event("Root");
+                    data = new Event(d);
                     children = new ArrayList();
                 }
                 
@@ -58,7 +61,7 @@ public class Graph
 			return this.data;
 		}
 	}
-        
+        /*
         public void addIfEmpty(Event n)
         {
             this.root.addChild(new Node(n));
@@ -133,12 +136,12 @@ public class Graph
                 }
                 addNode(n, c);
             }
-            return false;*/
+            return false;
 	}
             return false;
         }
         
-        public boolean hasNode(Event data, Node root)
+        public boolean hasNode(String data, Node root)
         {
             
             if(root.getData().equals(data))
@@ -151,9 +154,9 @@ public class Graph
                     
                 for(Node c: root.children)
                 {
-                    for(Event s: data.getSubscribe())
+                    for(String s: data.getSubscribe())
                     {
-                        if(c.getData().equals(s))
+                        if(c.getData().getPublish().equals(s))
                         {
                             return true;
                         }
@@ -167,7 +170,7 @@ public class Graph
                 if (root.children.stream().anyMatch((c) -> (hasNode(data, c)))) {
                     return true;
                 }*/
-                }
+                /*}
                 catch(NullPointerException e)
                         {
                     return false;
@@ -179,7 +182,7 @@ public class Graph
     @Override
     public String toString() {
         String temp = "";
-        for(Node n: root.children)
+        for(Node n: head.children)
         {
             temp += n.getData().toString();
             temp += toString(n);
@@ -202,6 +205,6 @@ public class Graph
             }
         }
         return "";
-    }
+    }*/
 }
 
